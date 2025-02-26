@@ -7,3 +7,15 @@ export let HashePassword = async (plainPassword) => {
     console.log("error occured while hashing password " + error.message);
   }
 };
+
+export let comparePassword = async(plainPassword,hashedPassword)=>{
+
+  try {
+    let password = await bcrypt.compare (plainPassword,hashedPassword);
+    return password;
+  } catch (error) {
+    console.log("error occured while comparing password from crypt" + error.message);
+    
+  }
+
+}

@@ -1,6 +1,6 @@
 import express from "express";
 import { body } from "express-validator";
-import { userRegisterControllers } from "../controllers/userController.js";
+import { userLoginControllers, userRegisterControllers } from "../controllers/userController.js";
 
 let userRoutes = express.Router();
 userRoutes.post("/register", [
@@ -12,5 +12,10 @@ userRoutes.post("/register", [
     .isLength({ min: 3 })
     .withMessage("Last name must be atlease 3 charecters long"),
 ],userRegisterControllers);
+
+userRoutes.post('/login',[
+  body("email").isEmail().withMessage("Invalid Email"),
+  body("password").isLength({min:5}).withMessage("Password must be atleast 5 charecters long")
+],userLoginControllers);
 
 export default userRoutes;
