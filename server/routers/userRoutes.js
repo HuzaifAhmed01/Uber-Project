@@ -1,6 +1,7 @@
 import express from "express";
 import { body } from "express-validator";
-import { userLoginControllers, userRegisterControllers } from "../controllers/userController.js";
+import { userLoginControllers, userProfileControllers, userRegisterControllers } from "../controllers/userController.js";
+import { authToken } from "../middlewares/auth.middleware.js";
 
 let userRoutes = express.Router();
 userRoutes.post("/register", [
@@ -18,4 +19,6 @@ userRoutes.post('/login',[
   body("password").isLength({min:5}).withMessage("Password must be atleast 5 charecters long")
 ],userLoginControllers);
 
+
+userRoutes.get('/profile',authToken,userProfileControllers);
 export default userRoutes;

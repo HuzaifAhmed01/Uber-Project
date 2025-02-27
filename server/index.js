@@ -5,15 +5,17 @@ import dotenv from "dotenv";
 import connectToDb from "./db/connection.js";
 import bodyParser from "body-parser";
 import userRoutes from "./routers/userRoutes.js";
+import cookieParser from "cookie-parser";
 
 // MODULE CONFIGUERS
 const app = express();
 dotenv.config();
 app.use(cors());
 
-// FOR PERSING DATA WITH BODYPARSER
+// FOR PERSING DATA WITH DATAPARSER
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 // ENVOIMENTAL VARIABLES
 let port = process.env.PORT;
