@@ -1,6 +1,6 @@
 import express from "express";
 import { body } from "express-validator";
-import { userLoginControllers, userProfileControllers, userRegisterControllers } from "../controllers/userController.js";
+import { userLoginControllers, userLogoutControllers, userProfileControllers, userRegisterControllers } from "../controllers/userController.js";
 import { authToken } from "../middlewares/auth.middleware.js";
 
 let userRoutes = express.Router();
@@ -21,4 +21,5 @@ userRoutes.post('/login',[
 
 
 userRoutes.get('/profile',authToken,userProfileControllers);
+userRoutes.get('/logout',authToken,userLogoutControllers  );
 export default userRoutes;

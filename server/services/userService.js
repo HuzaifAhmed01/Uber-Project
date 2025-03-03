@@ -30,3 +30,13 @@ export let userFindService = async (email) => {
     );
   }
 };
+export let userFindByIdService = async (id) => {
+  try {
+    let user = await userModel.findById(id);
+    return user;
+  } catch (error) {
+    console.log(
+      "error occued while finding user from services " + error.message
+    );
+  }
+};

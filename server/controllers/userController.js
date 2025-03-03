@@ -5,6 +5,8 @@ import {
 } from "../services/userService.js";
 import { comparePassword, HashePassword } from "../authentication/crypt.js";
 import { generateToken } from "../authentication/jwt.js";
+import BlacklistedToken from "../model/blacklistedTokenModel.js";
+import BlacklistedTokenModel from "../model/blacklistedTokenModel.js";
 
 export let userRegisterControllers = async (req, res) => {
   try {
@@ -49,8 +51,10 @@ export let userLoginControllers = async (req, res) => {
     let token = generateToken(user._id);
 
     // console.log(token);
-    res.cookie("token",token);
-    res.status(200).json({ message: "User logged in successfully",token,user });
+    res.cookie("token", token);
+    res
+      .status(200)
+      .json({ message: "User logged in successfully", token, user });
   } catch (error) {
     console.log(
       "error occured while logging in user from controllers" + error.message
@@ -60,4 +64,12 @@ export let userLoginControllers = async (req, res) => {
 
 export let userProfileControllers = (req, res) => {
   res.status(200).json({ user: req.user });
+};
+
+export let userLogoutControllers = async (req, res) => {
+  let token = req.cookies.token || req.headers.authorization.splite(" ")[1];
+
+  res.clearCookie("token");
+  res.status(200).json({ message: "User logged out successfully" });
+  await BlacklistedTokenModel.create({ token });
 };
