@@ -5,7 +5,6 @@ import {
 } from "../services/userService.js";
 import { comparePassword, HashePassword } from "../authentication/crypt.js";
 import { generateToken } from "../authentication/jwt.js";
-import BlacklistedToken from "../model/blacklistedTokenModel.js";
 import BlacklistedTokenModel from "../model/blacklistedTokenModel.js";
 
 export let userRegisterControllers = async (req, res) => {
@@ -15,6 +14,12 @@ export let userRegisterControllers = async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
     let { fullname, email, password } = req.body;
+
+    let alreadyUser = await userFindService(email);
+    if (alreadyUser) {
+      return res.status(400).json({ message: "User already exists" });
+    };
+
     // console.log(fullname, email, password);
     let hashedPassword = await HashePassword(password);
     let user = await userRegisterService(fullname, email, hashedPassword);

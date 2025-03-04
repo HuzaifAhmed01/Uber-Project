@@ -6,6 +6,7 @@ import connectToDb from "./db/connection.js";
 import bodyParser from "body-parser";
 import userRoutes from "./routers/userRoutes.js";
 import cookieParser from "cookie-parser";
+import captainRoutes from "./routers/captainRoutes.js";
 
 // MODULE CONFIGUERS
 const app = express();
@@ -26,6 +27,7 @@ connectToDb(dbString);
 
 //ROUTES
 app.use("/users",userRoutes);
+app.use("/captains",captainRoutes);
 
 //SERVER
 app.listen(port, () => {
