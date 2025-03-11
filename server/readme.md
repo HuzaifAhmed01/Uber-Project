@@ -341,6 +341,191 @@ Content-Type: application/json
 - The JWT token expires in 24 hours
 - Location fields (lat, lng) are optional at registration
 
+## Captain Login
+
+### Endpoint
+
+`POST /captains/login`
+
+### Description
+
+This endpoint authenticates a captain using their email and password. Upon successful authentication, it returns a JWT token that can be used for subsequent authorized requests.
+
+### Request
+
+#### Headers:
+```plaintext
+Content-Type: application/json
+```
+
+#### Body:
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+#### Example Request:
+```json
+{
+  "email": "test_captain@gmail.com",
+  "password": "securePassword123"
+}
+```
+
+### Response
+
+#### Success (200 OK):
+```json
+{
+  "message": "Captain logged in successfully",
+  "token": "JWT_TOKEN"
+}
+```
+
+#### Example Success Response:
+```json
+{
+  "message": "Captain logged in successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2M3M2ZkZWY4ZjBjZjA0MGNmYTFkZjYiLCJpYXQiOjE3NDExMTEyNjIsImV4cCI6MTc0MTE5NzY2Mn0"
+}
+```
+
+#### Error (400 Bad Request):
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid Email",
+      "param": "email",
+      "location": "body"
+    },
+    {
+      "msg": "Password must be at least 5 characters long",
+      "param": "password",
+      "location": "body"
+    }
+  ]
+}
+```
+
+#### Error (401 Unauthorized):
+```json
+{
+  "message": "Invalid Email or Password"
+}
+```
+
+### Notes
+- Token is set in cookies and returned in response
+- Password must be at least 5 characters long
+- Email must be in valid format
+
+## Captain Profile
+
+### Endpoint
+
+`GET /captains/profile`
+
+### Description
+
+This endpoint retrieves the profile information of the authenticated captain. It requires a valid JWT token for authorization.
+
+### Request
+
+#### Headers:
+```plaintext
+Content-Type: application/json
+Authorization: Bearer JWT_TOKEN
+```
+
+#### Example Headers:
+```plaintext
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2M3M2ZkZWY4ZjBjZjA0MGNmYTFkZjYiLCJpYXQiOjE3NDExMTEyNjIsImV4cCI6MTc0MTE5NzY2Mn0
+```
+
+### Response
+
+#### Success (200 OK):
+```json
+{
+  "message": "Captain Profile",
+  "captain": {
+    "_id": "67c73fdef8f0cf040cfa1df6",
+    "fullname": {
+      "firstname": "test_captain_firstname",
+      "lastname": "test_captain_lastname"  
+    },
+    "email": "test_captain@gmail.com",
+    "status": "inactive",
+    "vehicle": {
+      "color": "red",
+      "plate": "MH 26 ND 349",
+      "capacity": 3,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+#### Error (401 Unauthorized):
+```json
+{
+  "message": "Unauthorized - Invalid or missing token"
+}
+```
+
+### Notes
+- Requires valid JWT token in Authorization header
+- Password is not included in response
+
+## Captain Logout
+
+### Endpoint
+
+`GET /captains/logout`
+
+### Description
+
+This endpoint logs out the captain by invalidating their JWT token. The token is added to a blacklist and the authentication cookie is cleared.
+
+### Request
+
+#### Headers:
+```plaintext
+Content-Type: application/json
+Authorization: Bearer JWT_TOKEN
+```
+
+#### Example Headers:
+```plaintext
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2M3M2ZkZWY4ZjBjZjA0MGNmYTFkZjYiLCJpYXQiOjE3NDExMTEyNjIsImV4cCI6MTc0MTE5NzY2Mn0
+```
+
+### Response
+
+#### Success (200 OK):
+```json
+{
+  "success": true,
+  "message": "Captain logged out successfully"
+}
+```
+
+#### Error (401 Unauthorized):
+```json
+{
+  "message": "Unauthorized - Invalid or missing token"
+}
+```
+
+### Notes
+- Requires valid JWT token in Authorization header or cookies
+- Token is blacklisted to prevent reuse
+- Authentication cookie is cleared
+- Blacklisted tokens expire after 24 hours
+
 
 
 

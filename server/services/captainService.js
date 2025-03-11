@@ -46,7 +46,7 @@ export let captainRegisterService = async ({
 
 export let captainFindService = async (email) => {
   try {
-    const captain = await captainModel.findOne({ email });
+    const captain = await captainModel.findOne({ email }).select("+password");
     return captain;
   } catch (error) {
     console.log(

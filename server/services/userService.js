@@ -19,24 +19,3 @@ export let userRegisterService = async (fullname, email, password) => {
     );
   }
 };
-
-export let userFindService = async (email) => {
-  try {
-    let user = await userModel.findOne({ email }).select("+password");
-    return user;
-  } catch (error) {
-    console.log(
-      "error occued while finding user from services " + error.message
-    );
-  }
-};
-export let userFindByIdService = async (id) => {
-  try {
-    let user = await userModel.findById(id);
-    return user;
-  } catch (error) {
-    console.log(
-      "error occued while finding user from services " + error.message
-    );
-  }
-};
