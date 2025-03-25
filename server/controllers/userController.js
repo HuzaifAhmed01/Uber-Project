@@ -1,7 +1,5 @@
 import { validationResult } from "express-validator";
-import {
-  userRegisterService,
-} from "../services/userService.js";
+import { userRegisterService } from "../services/userService.js";
 import { comparePassword, HashePassword } from "../authentication/crypt.js";
 import { generateToken } from "../authentication/jwt.js";
 import BlacklistedTokenModel from "../model/blacklistedTokenModel.js";
@@ -15,10 +13,10 @@ export let userRegisterControllers = async (req, res) => {
     }
     let { fullname, email, password } = req.body;
 
-    let alreadyUser = await userModel.findOne({email}).select("+password");
+    let alreadyUser = await userModel.findOne({ email }).select("+password");
     if (alreadyUser) {
       return res.status(400).json({ message: "User already exists" });
-    };
+    }
 
     // console.log(fullname, email, password);
     let hashedPassword = await HashePassword(password);
@@ -43,7 +41,7 @@ export let userLoginControllers = async (req, res) => {
 
     let { email, password } = req.body;
 
-    let user = await userModel.findOne({email}).select("+password");
+    let user = await userModel.findOne({ email }).select("+password");
 
     if (!user)
       return res.status(401).json({ message: "invalid Email or Password" });
@@ -72,9 +70,13 @@ export let userProfileControllers = (req, res) => {
 };
 
 export let userLogoutControllers = async (req, res) => {
-  let token = req.cookies.token || req.headers.authorization.splite(" ")[1];
+  try {
+    let token = req.cookies.token || req.headers.authorization.split(" ")[1];
 
-  res.clearCookie("token");
-  res.status(200).json({ message: "User logged out successfully" });
-  await BlacklistedTokenModel.create({ token });
+    res.clearCookie("token");
+    res.status(200).json({ message: "User logged out successfully" });
+    await BlacklistedTokenModel.create({ token });
+  } catch (error) {
+    console.log("error occured while user logout " + error.message);
+  }
 };

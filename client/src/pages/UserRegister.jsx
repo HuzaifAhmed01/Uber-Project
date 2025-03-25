@@ -1,39 +1,60 @@
 import React, { useState } from "react";
 import { Uberlogo } from "../assets/images";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { userDataContext } from "../context/userContext";
 
 const CaptainRegister = () => {
   let [firstname, setFirstname] = useState("");
   let [lastname, setLastname] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  let [captainData, setCaptainData] = useState({});
+  let [userData, setUserData] = useState({});
 
-  let handleSubmit =  (e) => {
+  let navigate = useNavigate();
+
+  let { user, setUser } = React.useContext(userDataContext);
+
+  let handleSubmit = async (e) => {
     e.preventDefault();
-    setCaptainData({
+    let newUser = {
       fullname: {
         firstname: firstname,
         lastname: lastname,
       },
       email: email,
       password: password,
-    });
+    };
+    console.log(newUser);
+    let response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/users/register`,
+      newUser
+    );
 
+    if (response.status === 201) {
+      let data = response.data;
 
+      setUser(data.user);
 
+      localStorage.setItem('token',data.token);
+      navigate('/home')
+    }
 
-    setEmail('');
-    setPassword('');
-    setFirstname('');
-    setLastname('');
+    setEmail("");
+    setPassword("");
+    setFirstname("");
+    setLastname("");
   };
 
   return (
     <div className="p-7 h-screen flex flex-col justify-between  ">
       <div>
         <img src={Uberlogo} className="w-16 mb-10" alt="" />
-        <form onSubmit={(e)=>{handleSubmit(e)}}>
+        <form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
           <h3 className="text-lg font-medium mb-2">What's your name?</h3>
           <div className="flex gap-4 mb-5 ">
             <input
@@ -89,7 +110,7 @@ const CaptainRegister = () => {
             type="submit"
             className="bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2  w-full text-lg placeholder:text-base"
           >
-            register
+            Create account
           </button>
           <p className="text-center">
             already have an account?

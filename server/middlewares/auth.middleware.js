@@ -10,10 +10,9 @@ export let authToken = async (req, res, next) => {
   }
   let isBlackListed = await BlacklistedTokenModel.findOne({token});
   if (isBlackListed) {
-    return res.status(401).json({ message: "Unauthorized Access" });
+    return res.status(401).json({ message: "Unauthorized Access for black" });
   }
   try {
-    console.log(token);
     let decodeToken = jwt.verify(token, process.env.SECRET_KEY);
     let user = await userModel.findById(decodeToken._id);
 
