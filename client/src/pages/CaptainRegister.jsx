@@ -22,6 +22,7 @@ const CaptainRegister = () => {
 
   // let [captainData, setCaptainData] = useState({});
 
+
   let handleSubmit = async (e) => {
     e.preventDefault();
     const captainData = {
@@ -50,7 +51,7 @@ const CaptainRegister = () => {
       console.log(captain);
       localStorage.setItem("token", data.token);
 
-      navigate("/");
+      navigate("/captain-home");
     }
 
     setEmail("");

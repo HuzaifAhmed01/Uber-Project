@@ -77,7 +77,7 @@ export const captainLoginControllers = async (req, res) => {
     let token = generateToken(user._id);
 
     res.cookie("token", token);
-    res.status(200).json({ message: "Captain logged in successfully", token });
+    res.status(200).json({ message: "Captain logged in successfully", token  });
   } catch (error) {
     console.log(
       "error occured while logging in captain from controllers " + error.message

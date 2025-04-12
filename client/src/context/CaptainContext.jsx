@@ -16,7 +16,6 @@ const CaptainContext = ({ children }) => {
 
 
   
-  console.log(captain);
 
   return (
     <captainDataContext.Provider value={{captain,
