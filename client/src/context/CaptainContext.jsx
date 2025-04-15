@@ -24,7 +24,7 @@ const CaptainContext = ({ children }) => {
         setIsLoading,
         error,
         setError,
-        updateCaptain}
+        updateCaptain} 
     }>
       {children}
     </captainDataContext.Provider>
