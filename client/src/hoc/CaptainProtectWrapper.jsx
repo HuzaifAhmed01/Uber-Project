@@ -8,7 +8,7 @@ const CaptainProtectWrapper =  ({ children }) => {
   let navigate = useNavigate();
   let { captain, setCaptain } = useContext(captainDataContext);
   let [isLoading, setIsLoading] = useState(true);
-
+  
 
 
   useEffect(() => {
