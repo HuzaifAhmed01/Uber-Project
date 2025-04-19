@@ -3,7 +3,8 @@ import HeroBackground from './HeroBG.avif';
 import UberCaptianLogo from './UberCaptainLogo.webp';
 import UberMap from './UberMap.jpg';
 import UberWhiteCar from './Uber-White-Car-Png.png'
-
+import UberMoto from './Uber-Moto-png.webp'
+import UberAuto from './Uber-Auto.webp'
 
 export {
 
@@ -11,6 +12,8 @@ export {
     HeroBackground,
     UberCaptianLogo,
     UberMap,
-    UberWhiteCar
+    UberWhiteCar,
+    UberMoto,
+    UberAuto,
 
 }
