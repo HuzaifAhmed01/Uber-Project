@@ -64,7 +64,7 @@ const Home = () => {
         duration: 0.5,
       });
     } else {
-      gsap.to(confirmedRidePanel.current, {
+      gsap.to(confirmedRidePanelRef.current, {
         transform: "translateY(100%)",
         duration: 0.5,
       });
@@ -131,10 +131,10 @@ const Home = () => {
 
       {/* this is for controlling vehicle ride panel */}
       <div
-        ref={vehiclePanelRef}
+        ref={confirmedRidePanelRef}
         className="w-full fixed z-10 bottom-0 px-3 py-6 bg-white translate-y-full"
       >
-        <ConfirmedRide  />
+        <ConfirmedRide />
  
       </div>
     </div>

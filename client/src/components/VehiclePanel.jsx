@@ -37,7 +37,7 @@ const VehiclePanel = (props) => {
       <h5
         className="w-full flex justify-center text-center px-2 py-3 text-gray-400 "
       >
-        <RiArrowDownWideFill size={20} />
+        < RiArrowDownWideFill size={20} onClick={()=>props.setVehiclePanelOpen(false)} />
       </h5>
       <h3 className="text-2xl font-semibold mb-5">choose a vehicle</h3>
       {vehicles.map((vehicle, index) => {
@@ -46,9 +46,7 @@ const VehiclePanel = (props) => {
 
           
             key={index}
-            onClick={() => {props.setVehiclePanelOpen(false);
-                props.setConfirmedRidePanel(true);
-            }}
+            onClick={() =>props.setConfirmedRidePanel(true)}
             className=" bg-white border-2 border-gray-300 active:border-black mb-2 rounded-2xl flex w-full p-3 items-center justify-center  "
           >
             <img className="h-12" src={vehicle.image} alt="" />

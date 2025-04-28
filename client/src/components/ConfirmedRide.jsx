@@ -1,8 +1,8 @@
 import React from 'react'
 
-const ConfirmedRide = () => {
+const ConfirmedRide = (props) => {
   return (
-    <div>
+    <div ref={props.confirmedRidePanelRef}>
         <h3>Confirmed Ride</h3>
       
     </div>
