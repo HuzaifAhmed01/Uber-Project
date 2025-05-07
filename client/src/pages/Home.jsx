@@ -6,6 +6,8 @@ import { RiArrowDownWideFill } from "react-icons/ri";
 import LocationSearchPanel from "../components/LocationSearchPanel";
 import VehiclePanel from "../components/VehiclePanel";
 import ConfirmedRide from "../components/ConfirmedRide";
+import LookingForDriver from "../components/LookingForDriver";
+import WaitingForDriver from "../components/WaitingForDriver";
 
 const Home = () => {
   let [pickup, setPickup] = useState("");
@@ -13,10 +15,14 @@ const Home = () => {
   let [panelOpen, setPanelOPen] = useState(false);
   let [vehiclePanelOpen, setVehiclePanelOpen] = useState(false);
   let [confirmedRidePanel,setConfirmedRidePanel]= useState(false);
+  let [vehicleFound, setVehicleFound] = useState(false);
+  let [waitingForDriver, setWaitingForDriver] = useState(false);
   let panelRef = useRef(null);
   let panelCloseRef = useRef(null);
   let vehiclePanelRef = useRef(null);
   let confirmedRidePanelRef = useRef(null);
+  let vehicleRef = useRef(null);
+  let waitingForDriverRef = useRef(null);
   
 
   const submitHandler = (e) => {
@@ -41,7 +47,7 @@ const Home = () => {
         opacity: 0,
       });
     }
-  }, [panelOpen]);
+  }, [panelOpen]); // this is for controlling location search panel open and close
 
   useGSAP(() => {
     if (vehiclePanelOpen) {
@@ -55,7 +61,7 @@ const Home = () => {
         duration: 0.5,
       });
     }
-  }, [vehiclePanelOpen]);
+  }, [vehiclePanelOpen]); // this is for controlling vehicle panel open and close
 
   useGSAP(() => {
     if (confirmedRidePanel) {
@@ -69,7 +75,37 @@ const Home = () => {
         duration: 0.5,
       });
     }
-  }, [confirmedRidePanel]);
+  }, [confirmedRidePanel]);  // this is for confirming ride 
+
+  useGSAP(() => {
+    if (vehicleFound) {
+      gsap.to(vehicleRef.current, {
+        transform: "translateY(0)",
+        duration: 0.5,
+      });
+    } else {
+      gsap.to(vehicleRef.current, {
+        transform: "translateY(100%)",
+        duration: 0.5,
+      });
+    }
+  }, [vehicleFound]);// this is for controlling Looking for driver panel 
+
+  useGSAP(() => {
+    if (waitingForDriver) {
+      gsap.to(waitingForDriverRef.current, {
+        transform: "translateY(0)",
+        duration: 0.5,
+      });
+    } else {
+      gsap.to(waitingForDriverRef.current, {
+        transform: "translateY(100%)",
+        duration: 0.5,
+      });
+    }
+  }, [waitingForDriver]);// this is for controlling waiting for driver panel
+
+
 
   return (
     <div className="h-screen overflow-hidden relative ">
@@ -123,7 +159,7 @@ const Home = () => {
       {/* this is for controlling vehicle panel */}
       <div
         ref={vehiclePanelRef}
-        className="w-full fixed z-10 bottom-0 px-3 py-6 bg-white translate-y-full"
+        className="w-full fixed z-10 bottom-0 px-3 py-10 pt-3 bg-white translate-y-full"
       >
         <VehiclePanel setConfirmedRidePanel={setConfirmedRidePanel} setVehiclePanelOpen={setVehiclePanelOpen} />    
       </div>
@@ -132,9 +168,24 @@ const Home = () => {
       {/* this is for controlling vehicle ride panel */}
       <div
         ref={confirmedRidePanelRef}
-        className="w-full fixed z-10 bottom-0 px-3 py-6 bg-white translate-y-full"
+        className="w-full fixed z-10 bottom-0 px-3 py-3 pt-6 bg-white translate-y-full"
       >
-        <ConfirmedRide />
+        <ConfirmedRide  setConfirmedRidePanel={setConfirmedRidePanel} setVehicleFound={setVehicleFound}  />
+ 
+      </div>
+      <div
+        ref={vehicleRef}
+        className="w-full fixed z-10 bottom-0 px-3 py-3  pt-6 bg-white translate-y-full"
+      >
+        <LookingForDriver setVehicleFound={setVehicleFound} />
+ 
+      </div>
+
+      <div
+        ref={waitingForDriverRef}
+        className="w-full fixed z-10 bottom-0 px-3 py-3  pt-6 bg-white translate-y-full"
+      >
+        <WaitingForDriver setWaitingForDriver={setWaitingForDriver}/>
  
       </div>
     </div>

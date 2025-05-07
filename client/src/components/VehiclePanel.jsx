@@ -10,7 +10,7 @@ const VehiclePanel = (props) => {
       name: "UberGo",
       image: UberWhiteCar,
       time: "2 mins away",
-      price: "₹193.20",
+      price: "193.20",
       capacity: 4,
       description: "Affordable, compact rides",
     },
@@ -18,7 +18,7 @@ const VehiclePanel = (props) => {
       name: "Moto",
       image: UberMoto,
       time: "3 mins away",
-      price: "₹65",
+      price: "65",
       capacity: 1,
       description: "Affordable, motorcycle rides",
     },
@@ -26,7 +26,7 @@ const VehiclePanel = (props) => {
       name: "UberAuto",
       image: UberAuto,
       time: "3 mins away",
-      price: "₹30",
+      price: "30",
       capacity: 3,
       description: "Affordable, Auto rides",
     },
@@ -46,10 +46,12 @@ const VehiclePanel = (props) => {
 
           
             key={index}
-            onClick={() =>props.setConfirmedRidePanel(true)}
+            onClick={() =>{props.setConfirmedRidePanel(true);
+              props.setVehiclePanelOpen(false)}
+            }
             className=" bg-white border-2 border-gray-300 active:border-black mb-2 rounded-2xl flex w-full p-3 items-center justify-center  "
           >
-            <img className="h-12" src={vehicle.image} alt="" />
+            <img className="h-12 " src={vehicle.image} alt="" />
             <div className="ml-2 w-1/2">
               <h4 className="font-medium text-base flex">
                 {vehicle.name}{" "}

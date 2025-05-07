@@ -1,23 +1,30 @@
 import React from "react";
-import { UberWhiteCar } from "../assets/images";
-import { RiArrowDownWideFill } from "react-icons/ri";
-import { MdLocationPin } from "react-icons/md";
-import { GrMapLocation } from "react-icons/gr";
 import { FaMoneyCheck } from "react-icons/fa";
+import { GrMapLocation } from "react-icons/gr";
+import { MdLocationPin } from "react-icons/md";
+import { RiArrowDownWideFill } from "react-icons/ri";
+import { UberWhiteCar } from "../assets/images";
 
-const ConfirmedRide = (props) => {
+const WaitingForDriver = (props) => {
   return (
     <div>
       <h5 className="w-full flex justify-center text-center px-2 py-1 mb-5 text-gray-400 ">
-        <RiArrowDownWideFill size={20} onClick={()=>props.setConfirmedRidePanel(false)}/>
+        <RiArrowDownWideFill size={20}  onClick={()=>props.setWaitingForDriver(false)}/>
       </h5>
-      <h3 className="text-2xl font-semibold mb-5 text-center">Confirm Your Ride</h3>
+
+      <div className="flex items-center justify-between">
+        <img className="h-12" src={UberWhiteCar} alt="" />
+        <div className="text-right">
+          <h2 className="text-lg font-medium">John Doe</h2>
+          <h4 className="text-xl font-semibold -mt-1 -mb-1">Cal23 SM03</h4>
+          <p>Maruti Suzuki Alto</p>
+        </div>
+      </div>
+
       <div className="flex gap-2 justify-between flex-col items-center">
-        <img className="h-20" src={UberWhiteCar} alt="" />
         <div className="w-full mt-5">
           <div className="flex items-center gap-5 p-3 border-b-2 border-gray-300">
-           
-            <GrMapLocation size={22}  />
+            <GrMapLocation size={22} />
 
             <div>
               <h4 className="text-lg font-medium ">37/11-A</h4>
@@ -25,14 +32,14 @@ const ConfirmedRide = (props) => {
             </div>
           </div>
           <div className="flex items-center gap-5 p-3 border-b-2 border-gray-300">
-          <MdLocationPin size={22} />
+            <MdLocationPin size={22} />
             <div>
               <h4 className="text-lg font-medium ">37/11-A</h4>
               <p className="text-sm -mt-1 text-gray-600">WorkShop Nanded</p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3">
-          <FaMoneyCheck size={22} />
+            <FaMoneyCheck size={22} />
 
             <div>
               <h4 className="text-lg font-medium ">₹ 193.90</h4>
@@ -40,16 +47,9 @@ const ConfirmedRide = (props) => {
             </div>
           </div>
         </div>
-
-        <button onClick={
-        ()=>{props.setVehicleFound(true);
-        props.setConfirmedRidePanel(false)
-        }} className="w-full bg-green-600 text-white font-semibold p-2 rounded-lg">
-          Confirm
-        </button>
       </div>
     </div>
   );
 };
 
-export default ConfirmedRide;
+export default WaitingForDriver;
