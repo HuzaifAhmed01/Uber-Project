@@ -1,19 +1,18 @@
-import React from 'react'
-import { FaBold, FaMoneyCheck } from 'react-icons/fa'
-import { MdLocationPin } from 'react-icons/md'
-import { CiLogout } from "react-icons/ci";
-import { Link } from 'react-router-dom'
-import { UberMap, UberWhiteCar } from '../assets/images'
+import React from "react";
+import { UberMap, UberWhiteCar } from "../assets/images";
+import { MdLocationPin } from "react-icons/md";
+import { RiHome5Line } from "react-icons/ri";
 
 
-const CaptainHome = () => {
+import { FaMoneyCheck } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+const Riding = () => {
   return (
     <div>
         <div className="fixed bg-white items-center justify-center rounded-full p-2 top-3 right-3">
-        <img src="" alt="" />
         <Link to={'/home'}>
-        <CiLogout className="w-5 h-5 text-black" />
-</Link>
+        <RiHome5Line size={20} /></Link>
         </div>
 
 
@@ -55,7 +54,7 @@ const CaptainHome = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CaptainHome
+export default Riding;

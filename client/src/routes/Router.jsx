@@ -11,6 +11,7 @@ import UserLogout from "../pages/UserLogout";
 import CaptainHome from "../pages/CaptainHome";
 import CaptainProtectWrapper from "../hoc/CaptainProtectWrapper";
 import CaptainLogout from "../pages/CaptainLogout";
+import Riding from "../pages/Riding";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Start />} />
         <Route path="/user-login" element={<UserLogin />} />
+        <Route path="/riding" element={<Riding/>}/>
         <Route path="/user-register" element={<UserRegister />} />
         <Route path="/captain-login" element={<CaptainLogin />} />
         <Route path="/captain-register" element={<CaptainRegister />} />
