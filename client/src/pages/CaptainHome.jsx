@@ -13,7 +13,7 @@ const CaptainHome = () => {
         <img src="" alt="" />
         <Link to={'/home'}>
         <CiLogout className="w-5 h-5 text-black" />
-</Link>
+</Link> 
         </div>
 
 
